@@ -1,46 +1,79 @@
-body {
-  background: #2d545e;
+/* Sets the containers height and width */
+.base-timer {
+  position: relative;
+  height: 300px;
+  width: 300px;
+  margin: 100px auto;
 }
-.timer-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+  fill: none;
+  stroke: none;
 }
-.time-display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+.base-timer__label {
+  position: absolute;
+
+  /* Size should match the parent container */
   width: 300px;
   height: 300px;
-  background: #edc9af;
-  border-radius: 50%;
-}
-.time-display p {
-  color: black;
-  font-size: 50px;
-}
 
-.timer-button-container {
-  width: 20%;
+  /* Keep the label aligned to the top */
+  top: 0;
+
+  /* Create a flexible box that centers content vertically and horizontally */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  /* flex-direction: column; */
+  justify-content: center;
+
+  /* Sort of an arbitrary number; adjust to your liking */
+  font-size: 48px;
+}
+.base-timer__path-remaining {
+  /* Just as thick as the original ring */
+  stroke-width: 7px;
+
+  /* Rounds the line endings to create a seamless circle */
+  stroke-linecap: round;
+
+  /* Makes sure the animation starts at the top of the circle */
+  transform: rotate(90deg);
+  transform-origin: center;
+
+  /* One second aligns with the speed of the countdown timer */
+  transition: 1s linear all;
+
+  /* Allows the ring to change color when the color value updates */
+  stroke: currentColor;
 }
 
-@media only screen and (max-width: 450px) {
-  .timer-button-container {
-    width: 50%;   
-  }
+.base-timer__svg {
+  /* Flips the svg and makes the animation to move left-to-right */
+  transform: scaleX(-1);
 }
 
-.button-container {
-  margin-top: 20px;
+/* .base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+} */
+
+.base-timer__path-remaining.orange {
+  color: orange;
 }
-.start-timer, .pause-timer, .reset-timer {
-  font-size: 20px;    
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.start-timer,
+.pause-timer,
+.reset-timer {
+  font-size: 20px;
   padding: 5px 10px;
   border-radius: 5px;
   border: none;
@@ -49,16 +82,23 @@ body {
 }
 
 .start-timer {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
 }
 
 .pause-timer {
-  background: #008CBA;
+  background: #008cba;
   color: white;
 }
 
 .reset-timer {
   background: #f44336;
   color: white;
+}
+.timer-button-container {
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
